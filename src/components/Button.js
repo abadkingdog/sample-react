@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Button extends Component {
   static propTypes = {
-    color: React.PropTypes.string,
-    isToggleOn: React.PropTypes.func
+    color: PropTypes.string,
+    isToggleOn: PropTypes.func
   };
 
   constructor(props) {
@@ -26,16 +26,16 @@ class Button extends Component {
         background: this.state.color
     }
     return (
-      <button 
-        type="button"
+      <button
         className="btn"
-        style={btnStyle}
+        type="button"
         onClick={() => this.handleClick()}
+        style={btnStyle}
         {...this.props}>
           {this.props.children} {this.state.isToggleOn ? 'ON' : 'OFF'}
         </button>
     );
   }
 }
-
+  
 export default Button;

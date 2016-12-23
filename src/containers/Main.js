@@ -1,40 +1,32 @@
-import React, { Component } from 'react';
-import Api from '../libs/api.js';
-import Button from '../components/Button';
+import React, { Component, PropTypes } from 'react';
+import {
+  Button,
+  List
+} from '../components';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: []
-    }
-  }
+  static propTypes = {
+    list: PropTypes.object,
+    getListData: PropTypes.func
+  };
 
   componentDidMount() {
-    Api.getList().then((response) => {
-      this.setState({
-        list: response
-      });
-    });
+    this.props.getListData();
   }
 
   render() {
+    if (!this.props.list) {
+        return (<p>No data yet</p>);
+    }
+
     return (
-      <div className="app">
-        <div className="header">
-          <h2>Sample React</h2>
-        </div>
         <div className="intro">
           <p>List of items from mocks</p>
-          <ul>
-            {this.state.list.map((val) => <li key={val.id}><strong>{val.title}</strong><br />{val.description}</li>)}
-          </ul>
+          <List data={this.props.list.items} error={this.props.list.error} isFetching={this.props.list.isFetching}></List>
           <Button color="green">Button</Button>
         </div>
-      </div>
     );
   }
 }
 
-// 
 export default Main;
