@@ -9,7 +9,6 @@ function requestGetList(data) {
 }
 
 function successGetList(data) {
-  console.log(22, data,  typeof data)
   return {
     type: types.SUCCESS_GET_LIST,
     items: data,

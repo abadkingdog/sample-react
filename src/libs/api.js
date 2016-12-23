@@ -2,11 +2,9 @@ let instance = null;
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
-    return response
+    return response;
   } else {
-    var error = new Error(response.statusText)
-    error.response = response
-    throw error
+    throw response.statusText;
   }
 }
 
@@ -34,14 +32,10 @@ class API {
       .then(checkStatus)
       .then(parseJSON)
       .catch(function(ex) {
-        console.log('parsing failed', ex)
+        throw(ex)
       });
 
     return fetchData;
-  }
-
-  setItem() {
-    // 
   }
 }
 

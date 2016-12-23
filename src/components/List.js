@@ -3,7 +3,9 @@ import imgLoader from '../images/default.gif';
 
 class List extends Component {
   static propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    error: PropTypes.string,
+    isFetching: PropTypes.bool
   };
 
   render() {
