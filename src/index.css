@@ -6,14 +6,18 @@ body {
 
 .btn {
   background: #000;
-  border: 0;
+  border: 1px solid #fff;
   color: #fff;
   margin: 0 5px;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 .app {
   /*text-align: center;*/
+}
+
+.pull-right {
+  float: right;
 }
 
 .header {

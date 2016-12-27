@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as listActions from '../actions/list';
+import Button from 'react-bootstrap/lib/Button';
+import Grid from 'react-bootstrap/lib/Grid';
 import {
-  Button,
   List
 } from '../components';
 
@@ -11,7 +15,7 @@ class Main extends Component {
   };
 
   componentDidMount() {
-    this.props.getListData();
+    this.props.listActions.getListData();
   }
 
   render() {
@@ -20,13 +24,25 @@ class Main extends Component {
     }
 
     return (
-        <div className="intro">
+        <Grid>
           <p>List of items from mocks</p>
           <List data={this.props.list.items} error={this.props.list.error} isFetching={this.props.list.isFetching}></List>
           <Button color="green">Button</Button>
-        </div>
+        </Grid>
     );
   }
 }
 
-export default Main;
+function mapStateToProps(state) {
+  return {
+    list: state.list
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    listActions: bindActionCreators(listActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

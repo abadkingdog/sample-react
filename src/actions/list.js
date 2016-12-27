@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+import * as types from '../constants/list';
 import Api from '../libs/api.js';
 
 function requestGetList(data) {

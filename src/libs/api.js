@@ -37,6 +37,24 @@ class API {
 
     return fetchData;
   }
+
+  signIn() {
+    var fetchData;
+
+    fetchData = fetch(this.API_URL + 'bins/xun87', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(checkStatus)
+      .then(parseJSON)
+      .catch(function(ex) {
+        throw(ex)
+      });
+
+    return fetchData;
+  }
 }
 
 export default new API();
