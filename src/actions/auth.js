@@ -12,21 +12,50 @@ import AppAuthToken from '../libs/appAuthToken';
  */
 function loginRequest() {
   return {
-    type: types.LOGIN_REQUEST
+    type: types.LOGIN_REQUEST,
+    isFetching: true
   };
 }
 
 function loginSuccess(token) {
   return {
     type: types.LOGIN_SUCCESS,
-    payload: token
+    payload: token,
+    isFetching: false
   };
 }
 
 function loginFailure(error) {
   return {
     type: types.LOGIN_FAILURE,
-    payload: error
+    payload: error,
+    isFetching: false
+  };
+}
+
+/**
+ * ## Login actions
+ */
+function logoutRequest() {
+  return {
+    type: types.LOGOUT_REQUEST,
+    isFetching: true
+  };
+}
+
+function logoutSuccess(res) {
+  return {
+    type: types.LOGOUT_SUCCESS,
+    payload: res,
+    isFetching: false
+  };
+}
+
+function logoutFailure(error) {
+  return {
+    type: types.LOGOUT_FAILURE,
+    payload: error,
+    isFetching: false
   };
 }
 
@@ -83,7 +112,7 @@ export function deleteSessionToken() {
  * If AppAuthToken has the sessionToken, the user is logged in
  * so set the state to logout.
  */
-export function getSessionToken() {
+export function getSessionToken(dispatch) {
   return dispatch => {
     dispatch(sessionTokenRequest());
     return new AppAuthToken().getSessionToken()
@@ -111,14 +140,28 @@ export function saveSessionToken(json) {
 export function login(params,  dispatch) {
   return dispatch => {
     dispatch(loginRequest())
-      return Api.signIn(params)
+      return Api.login(params.username, params.password)
         .then((json) => {
-          var token = json.api_token;
-          saveSessionToken(token)
+          var token = '02d140331b766367d148e5f8f55bd41d'; //json.api_token;
+          // saveSessionToken(token)
           dispatch(loginSuccess(token));
         })
         .catch((err) => {
           dispatch(loginFailure(err));
+        })
+  };
+}
+
+export function logout() {
+return dispatch => {
+    dispatch(logoutRequest())
+      return Api.logout()
+        .then((json) => {
+          // deleteSessionToken();
+          dispatch(logoutSuccess(json));
+        })
+        .catch((err) => {
+          dispatch(logoutFailure(err));
         })
   };
 }

@@ -1,4 +1,4 @@
-import * as types from '../constants/list';
+import * as types from '../constants/pets';
 import Api from '../libs/api.js';
 
 function requestGetList(data) {
@@ -24,10 +24,10 @@ function failureGetList(error) {
   };
 }
 
-export function getListData(dispatcher) {
+export function getPetsByStatus(status, dispatcher) {
   return (dispatch) => {
     dispatch(requestGetList());
-    Api.getList()
+    Api.getPetsByStatus(status)
       .then((response) => {
         dispatch(successGetList(response));
       }).catch((err) => {

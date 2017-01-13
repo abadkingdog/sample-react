@@ -3,6 +3,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import Button from 'react-bootstrap/lib/Button';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 class AuthForm extends Component {
   static propTypes = {
@@ -22,27 +23,29 @@ class AuthForm extends Component {
 
   handleChange(e, name) {
     this.setState({
-      [name]: e.target.value
+      [name]: e.target.value.trim()
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.sendAuth(this.state)
+    // this.props.sendAuth(this.state)
+    this.props.authActions.login(this.state);
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <FormGroup>
+        <FormGroup validationState={this.props.auth.error ? "error" : null}>
             <ControlLabel>Username</ControlLabel>
             <FormControl
                 type="text"
                 value={this.state.username}
                 placeholder="test"
                 onChange={ (e) => this.handleChange(e, 'username') } />
+            <FormControl.Feedback />
         </FormGroup>
-        <FormGroup>
+        <FormGroup validationState={this.props.auth.error ? "error" : null}>
             <ControlLabel>Password</ControlLabel>
             <FormControl
               type="password"
@@ -50,10 +53,13 @@ class AuthForm extends Component {
               placeholder="123123"
               onChange={ (e) => this.handleChange(e, 'password') } 
             />
+          <FormControl.Feedback />
         </FormGroup>
+        {this.props.auth.error ?  <FormGroup  validationState="error"><HelpBlock>{this.props.auth.error}</HelpBlock></FormGroup> : <HelpBlock>Enter any data for signIn</HelpBlock>}
         <Button
           bsStyle="primary"
-          type="submit">
+          type="submit"
+          disabled={this.props.auth.isFetching}>
           Sign In
         </Button>
       </form>
@@ -61,4 +67,4 @@ class AuthForm extends Component {
   }
 }
 
-export default AuthForm
+export default AuthForm;

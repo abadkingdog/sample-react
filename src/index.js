@@ -6,7 +6,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './containers/App';
 import Main from './containers/Main';
-import Auth from './containers/Auth';
+import ProductCard from './containers/ProductCard';
+import NotFoundPage from './containers/NotFoundPage';
 
 import configureStore from './store/configureStore';
 import './bootstrap.min.css';
@@ -19,7 +20,8 @@ ReactDOM.render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Main} />
-        <Route path="auth" component={Auth}/>
+        <Route path="card/:id" component={ProductCard}/>
+        <Route path="*" component={NotFoundPage} />
       </Route>
     </Router>
   </Provider>,

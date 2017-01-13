@@ -1,4 +1,4 @@
-import * as types from '../constants/list';
+import * as types from '../constants/pets';
 
 var initialState = {
   items: [],
@@ -6,7 +6,7 @@ var initialState = {
   error: null
 };
 
-export default function list(state = initialState, action) {
+export default function pets(state = initialState, action) {
   switch (action.type) {
     case types.SUCCESS_GET_LIST:
       var newstate = Object.assign({}, state, {

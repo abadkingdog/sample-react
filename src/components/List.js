@@ -1,12 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import imgLoader from '../images/default.gif';
+import Product from './Product';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 class List extends Component {
   static propTypes = {
     data: PropTypes.array,
-    error: PropTypes.string,
+    error: PropTypes.object,
     isFetching: PropTypes.bool
   };
+
+  renderItem(val) {
+    return (
+      <Col sm={3} key={val.id}>
+        <Product
+          id={val.id}
+          name={val.name}
+          status={val.status}
+          photoUrls={val.photoUrls}>
+        </Product>
+      </Col>
+    )
+  }
 
   render() {
     if (this.props.isFetching) { 
@@ -15,16 +31,16 @@ class List extends Component {
       )
     }
 
-    if (this.props.error) { 
+    if (!!this.props.error) { 
       return (
-        <p className="errorText">{this.props.error}</p>
+        <p className="errorText">{this.props.error.message}</p>
       )
     }
 
     return (
-      <ul>
-        {this.props.data.map((val) => <li key={val.id}><strong>{val.title}</strong><br />{val.description}</li>)}
-      </ul>
+      <Row>
+        {this.props.data.map((val) => this.renderItem(val))}
+      </Row>
     );
   }
 }

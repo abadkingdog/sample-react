@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux'
-import list from './list';
+import pets from './pets';
 import auth from './auth';
+import product from './product';
 
 var rootReducer = combineReducers({
-  list,
+  pets,
   auth,
+  product,
   routing: routerReducer
 });
 
