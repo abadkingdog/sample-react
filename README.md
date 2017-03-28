@@ -17,3 +17,8 @@ You will also see any lint errors in the console.
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
+
+
+REST API
+Used for example
+https://app.swaggerhub.com/api/abadkingdog/sampleAPI1/1.0.0

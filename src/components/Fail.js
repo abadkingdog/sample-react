@@ -16,6 +16,7 @@ class Fail extends Component {
         <Col sm={12}>
           <h1>{code} {message}</h1>
           <p>{description ? description : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}</p>
+          {this.props.children}
         </Col>
       </Row>
     );
